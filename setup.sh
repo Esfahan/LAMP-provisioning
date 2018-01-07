@@ -1,4 +1,5 @@
 #!/bin/bash
+PROJECT_NAME='sample_project'
 
 # PHP7
 sudo yum -y install epel-release.noarch
@@ -32,11 +33,16 @@ sudo systemctl restart mysqld
 sudo yum install -y httpd
 sudo systemctl start httpd
 sudo systemctl enable httpd
-sudo cp -f ./conf.d/httpd/sample_project.conf /etc/httpd/conf.d/sample_project.conf
+sudo cp -f ./conf.d/httpd/${PROJECT_NAME}.conf /etc/httpd/conf.d/${PROJECT_NAME}.conf
 
 DOCROOT='/var/www/html'
 if [ ! -d "${DOCROOT}" ]; then
   sudo mkdir -p ${DOCROOT}
+fi
+
+LOGDIR="/var/log/httpd/${PROJECT_NAME}"
+if [ ! -d "${LOGDIR}" ]; then
+  sudo mkdir -p ${LOGDIR}
 fi
 
 sudo chown vagrant:vagrant ${DOCROOT}
