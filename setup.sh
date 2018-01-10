@@ -1,10 +1,16 @@
 #!/bin/bash
 PROJECT_NAME='sample_project'
 
+sudo yum install -y unzip
+
 # PHP7
 sudo yum -y install epel-release.noarch
 sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 sudo yum -y install --enablerepo=remi,remi-php70 php php-devel php-mbstring php-pdo php-gd php-mysql php-xml
+
+# composer
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/tmp
+sudo mv /tmp/composer.phar /usr/local/bin/composer
 
 # MySQL5.7
 sudo yum -y localinstall http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
